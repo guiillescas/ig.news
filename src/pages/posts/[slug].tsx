@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/client";
+import { Session } from "next-auth";
 import { RichText } from "prismic-dom";
 
 import { getPrismicClient } from "../../services/prismic";
@@ -38,13 +39,22 @@ export default function Post({ post }: IPostProps) {
   );
 }
 
+interface UserSubscriptionSession extends Session {
+  activeSubscription?: any;
+}
+
 export const getServerSideProps: GetServerSideProps = async ({ req: request, params }) => {
-  const session = await getSession({ req: request });
+  const session: UserSubscriptionSession = await getSession({ req: request });
   const { slug } = params;
 
-  // if (!session) {
-
-  // }
+  if (!session?.activeSubscription) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
 
   const prismic = getPrismicClient(request);
 
