@@ -9,7 +9,7 @@ import styles from '../styles/Pages/home.module.scss';
 interface IHomeProps {
   product: {
     priceId: string;
-    amount: number;
+    amount: string;
   }
 }
 
