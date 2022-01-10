@@ -1,16 +1,12 @@
 import { Session } from "next-auth";
 import { signIn, useSession } from 'next-auth/client';
 import { useRouter } from 'next/dist/client/router';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { api } from '../../services/api';
 import { getStripeJs } from '../../services/stripe-js';
 
 import styles from './styles.module.scss';
-
-interface ISubscribeButtonProps {
-  priceId: string;
-}
 
 interface UserSubscriptionSession extends Session {
   activeSubscription?: any;
@@ -18,7 +14,7 @@ interface UserSubscriptionSession extends Session {
 
 type SessionProps = [UserSubscriptionSession, boolean];
 
-export function SubscribeButton({ priceId }: ISubscribeButtonProps) {
+export function SubscribeButton() {
   const [session]: SessionProps = useSession();
   const router = useRouter();
 
