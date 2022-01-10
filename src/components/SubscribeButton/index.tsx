@@ -1,6 +1,6 @@
 import { Session } from "next-auth";
 import { signIn, useSession } from 'next-auth/client';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from "next/router";
 import { toast } from 'react-toastify';
 
 import { api } from '../../services/api';
@@ -40,7 +40,6 @@ export function SubscribeButton() {
       await stripe.redirectToCheckout({ sessionId: sessionId });
     } catch (error) {
       toast.error(error.message);
-      console.log(error.message)
     }
   }
 
